@@ -427,7 +427,9 @@ Two bar charts are generated:
 
 This analysis helps to identify which strategy offers the best trade-off between speed and memory efficiency when using traditional vs. parallelized approaches.
 
-### Performance Table
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
 🔍 **Part 2: Compare between 3 library**
 In this section, the performance of three data processing libraries is evaluated:
 - Pandas
@@ -443,41 +445,105 @@ This analysis provides insight into the trade-offs between performance, memory e
 | Dask   | 2.77 | 92.85  |
 | Polars | 0.39 | 64.62  |
 
+### ⚙️ Processing Efficiency
+
+The three libraries show clear differences in ease of implementation, performance behaviour, and scalability.
+
+- 🐼 **Pandas**
+  - **Ease of implementation:** Very straightforward with simple and intuitive syntax. No additional configuration is required.
+  - **Handling dataset:** Successfully processes the dataset without errors, but performance is limited by single-threaded execution.
+  - **Limitations:** High memory usage and slower performance when handling large datasets.
+  - **Scalability:** Not suitable for very large datasets as it relies entirely on available memory in a single machine.
+
+- ⚙️ **Dask**
+  - **Ease of implementation:** More complex than Pandas due to lazy evaluation. Requires the use of `.compute()` to trigger execution.
+  - **Handling dataset:** Efficiently handles large datasets by splitting data into partitions, reducing memory pressure.
+  - **Limitations:** Introduces overhead from task scheduling, which can lead to slower performance in smaller environments.
+  - **Scalability:** Highly scalable and suitable for distributed computing across multiple machines or clusters.
+
+- ⚡ **Polars**
+  - **Ease of implementation:** Relatively easy to use with syntax similar to Pandas, requiring minimal additional configuration.
+  - **Handling dataset:** Processes the dataset efficiently with fast execution and low memory usage using built-in multi-threading.
+  - **Limitations:** Primarily designed for single-machine processing and less flexible for distributed systems compared to Dask.
+  - **Scalability:** Scales well on a single machine using parallel processing, but not intended for large distributed environments.
+ 
+💡 Pandas is the easiest to use but least efficient for large-scale data processing.Dask offers strong scalability but introduces additional complexity and overhead.  
+Polars provides the best balance of performance and ease of use, making it the most efficient choice for high-performance processing on a single machine.
+
 ---
 
 ### 📈 Visualisation
+<img width="1038" height="412" alt="image" src="https://github.com/user-attachments/assets/8b43095b-54ab-49ad-a932-6936356b89f7" />
 
 
-### Analysis
-Polars achieved the best performance due to efficient memory usage and multi-threading. Pandas showed moderate performance but used the most memory. Dask introduced overhead, making it slower in this environment, but it remains scalable for large datasets.
+### 📊 Performance Analysis
 
+- 🐼 **Pandas**
+  - Execution Time: ~2.42 s  
+  - Memory Usage: ~218 MiB  
+  - Uses single-threaded processing → slower and more memory-intensive  
+
+- ⚙️ **Dask**
+  - Execution Time: ~2.12 s  
+  - Memory Usage: ~93 MiB  
+  - More memory-efficient due to partitioning  
+  - Slight overhead from task scheduling, especially in small environments  
+
+- ⚡ **Polars**
+  - Execution Time: ~0.31 s (fastest)  
+  - Memory Usage: ~65 MiB (lowest)  
+  - Uses multi-threading → very efficient and fast  
+
+### 🔄 Scalability
+
+- Dask is designed for distributed systems and can scale across multiple machines  
+- Polars is optimised for single-machine performance  
+- Pandas is limited to smaller datasets due to memory constraints  
+
+### 💡 Overall Insight
+
+Polars provides the best performance and efficiency.  
+Pandas is the simplest but least efficient for large data.  
+Dask offers good scalability but comes with additional complexity and overhead.
 ________________________________________
 ## 6. Conclusion and Reflection
-This assignment highlights the importance of selecting appropriate strategies for handling large datasets.
-•	Load Less Data and Sampling improved speed 
-•	Data Type Optimisation reduced memory 
-•	Parallel Processing improved scalability 
+This study compared different strategies for handling large datasets and evaluated the performance of Pandas, Dask, and Polars.
 
-Polars provided the best overall performance, while Dask is suitable for large-scale distributed processing.
-Reflection
+The results show that Polars achieved the best overall performance, with the fastest execution time and lowest memory usage due to its multi-threaded architecture. Pandas, while simple and easy to use, showed higher memory consumption and slower performance due to its single-threaded processing. Dask provided better memory efficiency than Pandas and offers strong scalability, but its performance was affected by task scheduling overhead in this environment.
 
-The key learning is that performance depends on both the dataset size and system limitations. Tools like Dask may not perform well in smaller environments but are powerful for large-scale processing.
-Scalability
+Overall, the choice of library depends on the use case. Pandas is suitable for smaller datasets, Dask is ideal for distributed and large-scale processing, and Polars is the most efficient option for high-performance processing on a single machine.
 
-For very large datasets:
-•	Pandas is not suitable 
-•	Polars works well on single machines 
-•	Dask is best for distributed systems 
 ________________________________________
-References
 
-•	Kaggle Transactions Dataset 
+## 7. Reflection
+**Joanne:**
 
-•	Pandas Documentation 
+Throughout this assignment, several practical challenges were encountered, particularly when working with large datasets. One key issue was the limitation of Google Colab’s RAM, which caused the system to crash when attempting to load the full dataset using Pandas. This highlighted the importance of using efficient data handling strategies such as sampling, chunking, and alternative libraries.
 
-•	Dask Documentation 
+This experience helped improve my understanding of how different data processing libraries manage memory and performance. I also learned the importance of selecting the right tool based on the dataset size and system constraints. For example, while Pandas is easy to use, it is not suitable for large-scale data processing, whereas Polars provides a more efficient solution for high-performance tasks.
 
-•	Polars Documentation 
+Overall, this assignment strengthened my practical skills in handling big data and improved my ability to evaluate trade-offs between performance, memory usage, and scalability in real-world scenarios.
+________________________________________
+
+## References
+
+Pandas Development Team. (2025). *pandas: Python Data Analysis Library*.  
+https://pandas.pydata.org/
+
+Dask Development Team. (2025). *Dask: Parallel Computing Library*.  
+https://www.dask.org/
+
+Polars Development Team. (2025). *Polars: Fast DataFrame Library*.  
+https://pola.rs/
+
+Python Software Foundation. (2025). *Python Documentation (time module)*.  
+https://docs.python.org/3/library/time.html
+
+Python Software Foundation. (2025). *tracemalloc — Trace memory allocations*.  
+https://docs.python.org/3/library/tracemalloc.html
+
+Kaggle. (n.d.). *Synthetic Fraud Detection Dataset*.  
+https://www.kaggle.com/datasets/ismetsemedov/transactions/data  
 
 ---
 
